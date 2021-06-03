@@ -1,8 +1,10 @@
 require 'sinatra'
 require 'sinatra-websocket'
 
-set :server, 'thin'
-set :sockets, []
+configure do
+  set :server, 'thin'
+  set :sockets, []
+end
 
 get '/' do
   if !request.websocket?
