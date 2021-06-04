@@ -12,11 +12,9 @@ $(document).ready(function() {
     if (location.protocol == "http:") {
       var ws = new WebSocket('ws://' + window.location.host + window.location.pathname);
     }
-    ws.onopen = function(ws) {
-      // show(ws.data);
-    };
+    ws.onopen = function(ws) {};
     ws.onclose = function(ws) {
-      // show(ws.data);
+      console.log(`${ws.code}:${ws.reason}`);
     };
     ws.onmessage = function(ws) {
       show(ws.data);
