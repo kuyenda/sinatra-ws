@@ -6,7 +6,7 @@ $(document).ready(function() {
       }
     }($("#messages")[0]);
     // WS
-    var ws = new WebSocket('ws://' + window.location.host + window.location.pathname);
+    var ws = new WebSocket('wss://' + window.location.host + window.location.pathname);
     ws.onopen = function(ws) {
       // show(ws.data);
     };
