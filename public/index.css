@@ -1,0 +1,78 @@
+details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: var(--background-alt);
+    padding: 10px 10px 0;
+    margin: 1em 0;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+details[open] {
+    padding: 10px;
+}
+
+details> :last-child {
+    margin-bottom: 0;
+}
+
+details[open] summary {
+    margin-bottom: 10px;
+}
+
+summary {
+    display: list-item;
+    background-color: var(--background);
+    padding: 10px;
+    margin: -10px -10px 0;
+    cursor: pointer;
+    outline: none;
+}
+
+summary:hover,
+summary:focus {
+    text-decoration: underline;
+}
+
+details> :not(summary) {
+    margin-top: 0;
+}
+
+summary::-webkit-details-marker {
+    color: var(--text-main);
+}
+
+dialog {
+    background-color: var(--background-alt);
+    color: var(--text-main);
+    border: none;
+    border-radius: 6px;
+    border-color: var(--border);
+    padding: 10px 30px;
+}
+
+dialog>header:first-child {
+    background-color: var(--background);
+    border-radius: 6px 6px 0 0;
+    margin: -10px -30px 10px;
+    padding: 10px;
+    text-align: center;
+}
+
+dialog::backdrop {
+    background: #0000009c;
+    backdrop-filter: blur(4px);
+}
+
+@media (min-width: 576px) {
+    .mediaTitle {
+        margin-top: 2rem;
+    }
+}
+
+@media (min-width: 992px) {
+    .mediaTitle {
+        margin-top: 7rem;
+    }
+}

@@ -7,7 +7,7 @@ GEM
     em-websocket (0.3.8)
       addressable (>= 2.1.1)
       eventmachine (>= 0.12.9)
-    eventmachine (1.2.7-x64-mingw32)
+    eventmachine (1.2.7)
     multi_json (1.15.0)
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)

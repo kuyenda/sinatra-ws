@@ -1,9 +1,16 @@
 require 'sinatra'
 require 'sinatra-websocket'
+require "sinatra/reloader" if development?
 
 configure do
   set :server, 'thin'
   set :sockets, []
+end
+
+helpers do
+  def mark
+    Time.now.strftime("%M: %S") + "(#{request.ip})"
+  end
 end
 
 get '/' do
@@ -12,14 +19,18 @@ get '/' do
   else
     request.websocket do |ws|
       ws.onopen do
-        ws.send("Hello World!")
+        ws.send("#{mark} 加入！")
         settings.sockets << ws
       end
-      ws.onmessage do |msg|
-        EM.next_tick { settings.sockets.each{|s| s.send(msg) } }
+      ws.onmessage do |message|
+        EM.next_tick do
+          settings.sockets.each do |socket|
+            socket.send("#{mark} 说：#{message}")
+          end
+        end
       end
       ws.onclose do
-        warn("websocket closed")
+        ws.send("#{mark} 离开！")
         settings.sockets.delete(ws)
       end
     end
