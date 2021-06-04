@@ -6,12 +6,17 @@ $(document).ready(function() {
       }
     }($("#messages")[0]);
     // WS
-    var ws = new WebSocket('wss://' + window.location.host + window.location.pathname);
+    if (location.protocol == "https:") {
+      var ws = new WebSocket('wss://' + window.location.host + window.location.pathname);
+    }
+    if (location.protocol == "http:") {
+      var ws = new WebSocket('ws://' + window.location.host + window.location.pathname);
+    }
     ws.onopen = function(ws) {
       // show(ws.data);
     };
     ws.onclose = function(ws) {
-      show(ws.data);
+      // show(ws.data);
     }
     ws.onmessage = function(ws) {
       show(ws.data);

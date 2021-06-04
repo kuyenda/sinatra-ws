@@ -11,6 +11,13 @@ helpers do
   def mark
     Time.now.strftime("%M: %S") + "(#{request.ip})"
   end
+  def broadcast(message)
+    EM.next_tick do
+      settings.sockets.each do |socket|
+        socket.send(message)
+      end
+    end
+  end
 end
 
 get '/' do
@@ -19,18 +26,14 @@ get '/' do
   else
     request.websocket do |ws|
       ws.onopen do
-        ws.send("#{mark} 加入！")
         settings.sockets << ws
+        broadcast("#{mark} 加入！")
       end
       ws.onmessage do |message|
-        EM.next_tick do
-          settings.sockets.each do |socket|
-            socket.send("#{mark} 说：#{message}")
-          end
-        end
+        broadcast("#{mark} 说：#{message}")
       end
       ws.onclose do
-        ws.send("#{mark} 离开！")
+        broadcast("#{mark} 加入！")
         settings.sockets.delete(ws)
       end
     end
