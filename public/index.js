@@ -17,10 +17,13 @@ $(document).ready(function() {
     };
     ws.onclose = function(ws) {
       // show(ws.data);
-    }
+    };
     ws.onmessage = function(ws) {
       show(ws.data);
     };
+    ws.onerror = function(ws) {
+      console.error(ws);
+    }
     // DOM
     var sender = function(f) {
       var input = document.getElementById('input');
