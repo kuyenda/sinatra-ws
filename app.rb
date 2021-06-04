@@ -33,7 +33,7 @@ get '/' do
         broadcast("#{mark} 说：#{message}")
       end
       ws.onclose do
-        broadcast("#{mark} 加入！")
+        broadcast("#{mark} 离开了！")
         settings.sockets.delete(ws)
       end
     end
