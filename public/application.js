@@ -12,16 +12,21 @@ $(document).ready(function() {
     if (location.protocol == "http:") {
       var ws = new WebSocket('ws://' + window.location.host + window.location.pathname);
     }
-    ws.onopen = function(ws) {};
-    ws.onclose = function(ws) {
-      console.log(`${ws.code}:${ws.reason}`);
+    ws.onopen = function(e) {
+      console.warn(`Opened at ${new Date()}`)
+      console.log(e);
     };
-    ws.onmessage = function(ws) {
-      show(ws.data);
+    ws.onclose = function(e) {
+      console.warn(`Closed at ${new Date()}`)
+      console.log(e);
     };
-    ws.onerror = function(ws) {
-      console.error(ws);
+    ws.onerror = function(e) {
+      console.error(`Error occured at ${new Date()}`);
+      console.error(e);
     }
+    ws.onmessage = function(e) {
+      show(e.data);
+    };
     // DOM
     var sender = function(f) {
       var input = document.getElementById('input');
