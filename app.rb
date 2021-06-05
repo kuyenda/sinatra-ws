@@ -18,6 +18,9 @@ helpers do
       end
     end
   end
+  def pong
+    # Do nothing
+  end
 end
 
 get '/' do
@@ -30,7 +33,11 @@ get '/' do
         broadcast("#{mark} 加入！")
       end
       ws.onmessage do |message|
-        broadcast("#{mark} 说：#{message}")
+        if message!="ping"
+          broadcast("#{mark} 说：#{message}")
+        else
+          pong
+        end
       end
       ws.onclose do
         broadcast("#{mark} 离开了...")

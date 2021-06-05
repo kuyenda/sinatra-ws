@@ -12,6 +12,16 @@ $(document).ready(function() {
     if (location.protocol == "http:") {
       var ws = new WebSocket('ws://' + window.location.host + window.location.pathname);
     }
+    // heroku H15
+    ws.ping = function() {
+      this.send("ping");
+    }
+    window.ws = ws;
+    setInterval(function() {
+      if (ws) {
+        ws.ping();
+      }
+    }, 5000);
     ws.onopen = function(e) {
       console.warn(`Opened at ${new Date()}`)
       console.log(e);
